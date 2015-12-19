@@ -8,10 +8,15 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var catalogController = require('./routes/catalogController.js');
+var categoryController = require('./routes/categoryController.js');
 
 
 
 var app = express();
+
+//cors
+var cors = require('cors');
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +34,7 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/category', categoryController);
 app.use('/catalog', catalogController);
 app.use('/users', users);
 
@@ -39,9 +45,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-//cors
-var cors = require('cors');
-app.use(cors());
+
 
 // error handlers
 
