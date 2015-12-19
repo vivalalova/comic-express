@@ -19,12 +19,21 @@ router.get('/', function(req, res, next) {
         };
     };
 
-    if (req.param()) {};
+    if (req.param('category')) {
+        dict.category = {
+            '$regex': req.param('category')
+        };
+    }
+
+
+    var limit = req.param('limit') ? req.param('limit') : 30;
+    limit = limit > 100 ? 100 : limit;
+
 
     DB.Catalog.find(
         dict
-    ).limit(30).exec(function(err, data) {
-        if (err) return res.badRequest(err);
+    ).skip(req.param('skip') ? req.param('skip') : 0).limit(limit).exec(function(err, data) {
+        if (err) return res.send(err);
         res.send(data);
     });
 });
