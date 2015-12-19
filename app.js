@@ -39,6 +39,10 @@ app.use(function(req, res, next) {
     next(err);
 });
 
+//cors
+var cors = require('cors');
+app.use(cors());
+
 // error handlers
 
 // development error handler

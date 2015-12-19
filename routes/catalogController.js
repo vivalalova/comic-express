@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
         if (err) return res.badRequest(err);
         res.send(data);
     });
+
 });
 
 
