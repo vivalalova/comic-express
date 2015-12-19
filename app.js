@@ -9,6 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var catalogController = require('./routes/catalogController.js');
 var categoryController = require('./routes/categoryController.js');
+var chapterController = require('./routes/chapterController.js');
 
 
 
@@ -36,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/category', categoryController);
 app.use('/catalog', catalogController);
+// app.use('/catalog/:id/chapter', chapterController);
+
 app.use('/users', users);
 
 // catch 404 and forward to error handler
