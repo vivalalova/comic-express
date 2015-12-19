@@ -6,7 +6,7 @@ var router = express.Router();
 var Params = require('./params.js');
 
 router.get('/', function(req, res, next) {
-
+    console.log('........');
     DB.Chapter.find().
     limit(15).
     sort([

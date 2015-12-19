@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var catalogController = require('./routes/catalogController.js');
 var categoryController = require('./routes/categoryController.js');
-var chapterController = require('./routes/chapterController.js');
+// var chapterController = require('./routes/chapterController.js');
 
 
 

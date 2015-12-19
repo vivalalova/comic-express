@@ -11,6 +11,9 @@ var Params = require('./params.js');
 // var app = express();
 // var chapter = require('./chapterController.js');
 // app.use('/chapter', chapter);
+var chapterController = require('./chapterController.js');
+app.use('/:id/chapter', chapterController);
+
 
 
 router.get('/', function(req, res, next) {
@@ -37,6 +40,12 @@ router.get('/:id', function(req, res, next) {
 });
 
 // router.get('/:id/chapter', function(req, res, next) {
+//     console.log('although this matches');
+//     next();
+// });
+
+
+// router.get('/:id/chapter', function(req, res, next) {
 
 //     DB.Catalog.find({
 //         "_id": req.param('id')
@@ -48,8 +57,6 @@ router.get('/:id', function(req, res, next) {
 
 
 
-var chapterController = require('./chapterController.js');
-app.use('/:id/chapter', chapterController);
 
 
 
