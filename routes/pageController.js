@@ -1,4 +1,5 @@
 var DB = require('../model/DB.js');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 var express = require('express');
 var router = express.Router();
@@ -6,7 +7,12 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 
-    DB.Page.find(req.query.chapterID).
+    var query = {
+        chapter: new ObjectId(req.query.chapterID)
+    };
+
+
+    DB.Page.find(query).
     limit(req.query.limit).
     skip(req.query.skip).
     sort([
