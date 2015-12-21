@@ -5,10 +5,25 @@ var router = express.Router();
 
 var Params = require('./params.js');
 
+
+/////////////////////////////////////////////////////
+
+var pageController = require('./pageController.js');
+router.get('/:id/page', function(req, res, next) {
+    req.query.chapterID = req.param('id');
+    next();
+});
+router.use('/:id/page', pageController);
+
+/////////////////////////////////////////////////////////////
+
 router.get('/', function(req, res, next) {
-    console.log('........');
-    DB.Chapter.find().
-    limit(15).
+
+    DB.Chapter.find({
+        catalog: req.query.catalogID
+    }).
+    limit(req.query.limit).
+    skip(req.query.skip).
     sort([
         ['title', 'descending']
     ]).
@@ -17,7 +32,6 @@ router.get('/', function(req, res, next) {
         res.send(data);
     });
 });
-
 
 
 module.exports = router;

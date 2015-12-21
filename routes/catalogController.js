@@ -1,28 +1,54 @@
 var DB = require('../model/DB.js');
 
 var express = require('express');
-var app = express();
-
 var router = express.Router();
 
-var Params = require('./params.js');
 
-// app.use('/:id/chapter', chapter);
-// var app = express();
-// var chapter = require('./chapterController.js');
-// app.use('/chapter', chapter);
+
+
+/////pre 
+router.use('*', function(req, res, next) {
+
+    req.query.find = {};
+
+    if (req.param('title')) {
+        req.query.find.title = {
+            '$regex': req.param('title')
+        };
+    };
+
+    if (req.param('category')) {
+        req.query.find.category = {
+            '$regex': req.param('category')
+        };
+    }
+
+    var limit = req.param('limit') ? req.param('limit') : 30;
+    req.query.limit = limit > 100 ? 100 : limit;
+
+    req.query.skip = req.param('skip') ? req.param('skip') : 0;
+
+
+    next();
+});
+
+
+////chapter
 var chapterController = require('./chapterController.js');
-app.use('/:id/chapter', chapterController);
+router.get('/:id/chapter', function(req, res, next) {
+    req.query.catalogID = req.param('id');
+    next();
+});
+router.use('/:id/chapter', chapterController);
 
-
-
+/////
 router.get('/', function(req, res, next) {
 
     DB.Catalog.find(
-        Params.parseParams(req)
+        req.query.find
     ).
-    skip(Params.parseSkip(req)).
-    limit(Params.parseLimit(req)).
+    skip(req.query.skip).
+    limit(req.query.limit).
     exec(function(err, data) {
         if (err) return res.send(err);
         res.send(data);
@@ -38,30 +64,6 @@ router.get('/:id', function(req, res, next) {
         res.send(data);
     });
 });
-
-// router.get('/:id/chapter', function(req, res, next) {
-//     console.log('although this matches');
-//     next();
-// });
-
-
-// router.get('/:id/chapter', function(req, res, next) {
-
-//     DB.Catalog.find({
-//         "_id": req.param('id')
-//     }, function(err, data) {
-//         if (err) return res.badRequest(err);
-//         res.send(data);
-//     });
-// });
-
-
-
-
-
-
-
-
 
 
 module.exports = router;

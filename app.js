@@ -7,9 +7,6 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var catalogController = require('./routes/catalogController.js');
-var categoryController = require('./routes/categoryController.js');
-// var chapterController = require('./routes/chapterController.js');
 
 
 
@@ -35,9 +32,16 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+var categoryController = require('./routes/categoryController.js');
 app.use('/category', categoryController);
+
+var catalogController = require('./routes/catalogController.js');
 app.use('/catalog', catalogController);
-// app.use('/catalog/:id/chapter', chapterController);
+
+// var chapterController = require('./routes/chapterController.js ');
+    // app.use('/catalog/:id/chapter', chapterController);
+
 
 app.use('/users', users);
 
@@ -47,8 +51,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-
 
 // error handlers
 
