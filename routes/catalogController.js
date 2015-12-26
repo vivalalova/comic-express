@@ -3,9 +3,6 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
-
-
-
 /////pre 
 router.use('*', function(req, res, next) {
 

@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 
     DB.Page.find(query).
-    limit(req.query.limit).
+    limit(req.query.limit ? req.query.limit : 1000).
     skip(req.query.skip).
     sort([
         ['url', 'descending']
