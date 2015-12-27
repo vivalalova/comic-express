@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
 
 
 
@@ -39,11 +39,13 @@ app.use('/category', categoryController);
 var catalogController = require('./routes/catalogController.js');
 app.use('/catalog', catalogController);
 
+var bookController = require('./routes/bookController.js');
+app.use('/book', catalogController);
 // var chapterController = require('./routes/chapterController.js ');
-    // app.use('/catalog/:id/chapter', chapterController);
+// app.use('/catalog/:id/chapter', chapterController);
 
 
-app.use('/users', users);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -75,6 +77,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
