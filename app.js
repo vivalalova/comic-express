@@ -8,8 +8,6 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 
-
-
 var app = express();
 
 //cors
