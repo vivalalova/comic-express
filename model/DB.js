@@ -1,5 +1,7 @@
+var env = require('../config/env.js');
+
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/comic');
+mongoose.connect(env.db.url);
 
 
 var catalogSchema = mongoose.Schema(require('./catalog.js'));
