@@ -13,16 +13,15 @@ router.get('/', function(req, res, next) {
 
 
     DB.Page.find(query).
-    limit(req.query.limit ? req.query.limit : 1000).
+    limit(1000).
     skip(req.query.skip).
     sort([
-        ['url', 'descending']
+        ['url', 'ascending']
     ]).
     exec(function(err, data) {
         if (err) return res.send(err);
         res.send(data);
     });
 });
-
 
 module.exports = router;

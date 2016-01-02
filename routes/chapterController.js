@@ -3,7 +3,7 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
-var Params = require('./params.js');
+// var Params = require('./params.js');
 
 
 /////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
     DB.Chapter.find({
         catalog: req.query.catalogID
     }).
-    limit(req.query.limit).
+    limit(2000).
     skip(req.query.skip).
     sort([
         ['title', 'descending']
@@ -32,6 +32,9 @@ router.get('/', function(req, res, next) {
         res.send(data);
     });
 });
+
+
+
 
 
 module.exports = router;
