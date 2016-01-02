@@ -19,7 +19,7 @@ path `/catalog/`
 
 * `category title`
 	* from response of api `category` ex : `冒险类`
-* `title` for search comic
+* `title` for search comic-express
 * `limit` default to 30
 * `skip` (offset) default to 0 
 

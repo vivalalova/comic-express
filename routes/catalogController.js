@@ -3,6 +3,10 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
+var OpenCC = require('opencc');
+var opencc = new OpenCC('t2s.json');
+
+
 /////pre 
 router.use('*', function(req, res, next) {
 
@@ -10,7 +14,7 @@ router.use('*', function(req, res, next) {
 
     if (req.param('title')) {
         req.query.find.title = {
-            '$regex': req.param('title')
+            '$regex': opencc.convertSync(req.param('title'))
         };
     };
 

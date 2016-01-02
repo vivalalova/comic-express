@@ -5,8 +5,6 @@ var router = express.Router();
 
 /////pre 
 router.use('*', function(req, res, next) {
-
-
     next();
 });
 
