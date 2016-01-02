@@ -3,8 +3,13 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
+
+//繁體 to 簡體
 var OpenCC = require('opencc');
 var opencc = new OpenCC('t2s.json');
+
+//url decode
+// var urlencode = require('urlencode');
 
 
 /////pre 
@@ -13,8 +18,12 @@ router.use('*', function(req, res, next) {
     req.query.find = {};
 
     if (req.param('title')) {
+
+        // var decodeTitle = urlencode.decode(req.param('title'), 'utf8');
+        var CHT_title = opencc.convertSync(req.param('title'));
+
         req.query.find.title = {
-            '$regex': opencc.convertSync(req.param('title'))
+            '$regex': CHT_title
         };
     };
 

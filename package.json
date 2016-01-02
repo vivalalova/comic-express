@@ -17,6 +17,7 @@
     "morgan": "~1.6.1",
     "opencc": "^1.0.3",
     "serve-favicon": "~2.3.0",
-    "stylus": "0.42.3"
+    "stylus": "0.42.3",
+    "urlencode": "^1.1.0"
   }
 }
