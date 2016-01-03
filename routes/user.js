@@ -9,16 +9,23 @@ var crypto = require('crypto');
 /* GET users listing. */
 router.use('*', function(req, res, next) {
 
+    delete req.body.isAdmin;
+    console.log(req.body);
+    next();
+});
+
+router.post('*', function(req, res, next) {
     if (!req.body.passwd) {
         return res.send(400, {
             RM: 'passwd required'
         });
     };
+
     next();
 });
 
 router.post('/sign', function(req, res, next) {
-    console.log(req.body.id);
+
     DB.User.findOne({
         '_id': req.body.id
     }, function(err, user) {
@@ -27,13 +34,13 @@ router.post('/sign', function(req, res, next) {
         if (user) { //exists
 
             if (bcrypt.compareSync(req.body.passwd, user.passwd)) {
+                req.session.user = user;
                 return res.toJSON(user);
             } else {
                 res.send(400, {
                     RM: 'user avaiable'
                 });
             }
-
         } else { //sign up
 
             var salt = bcrypt.genSaltSync(10);
@@ -51,12 +58,21 @@ router.post('/sign', function(req, res, next) {
                     err: err
                 });
 
+                req.session.user = user;
+
                 return res.toJSON(user);
             });
         }
     });
 });
 
+router.get('/session', function(req, res, next) {
+    return res.send(req.session);
+});
+
+
+
+/////////////// private method ///////////////
 
 function createToken() {
     var current_date = (new Date()).valueOf().toString();

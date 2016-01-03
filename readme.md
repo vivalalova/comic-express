@@ -5,7 +5,17 @@ comic-express
 
 * git clone
 * set env param in ./config/env.js
+
+* create seed user with admin permission
+	* modify `user id` and `passwd` first
+```
+node seed.js
+```
+
+
 * launch with `node ./bin/www` or else
+
+
 
 ### API
 
@@ -37,3 +47,4 @@ path `/catalog/{catalog_id}/chapter/{chapter_id}/page`
 * catalog_id
 * chapter_id
 * limit = 1000
+

@@ -10,6 +10,7 @@ var user = require('./routes/user');
 
 var app = express();
 
+
 //cors
 var cors = require('cors');
 app.use(cors());
@@ -26,6 +27,12 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+
+//session
+var session = require('./config/session.js');
+app.use(session);
+
+
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 

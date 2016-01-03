@@ -8,6 +8,7 @@ module.exports = {
     updatedAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    isAdmin: Boolean
 
 }
