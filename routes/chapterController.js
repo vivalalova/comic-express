@@ -43,7 +43,7 @@ function updateHitWithCatalogID (catalogID) {
         $inc: { hot: 1 }
     },function (err,numAffected) {
         if (err) return console.log(err);
-        console.log(numAffected);
+
     })
 }
 

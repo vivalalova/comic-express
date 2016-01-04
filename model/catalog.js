@@ -17,7 +17,8 @@ module.exports = {
     createdAt: Date,
     updatedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        index:true
     },
     
 }

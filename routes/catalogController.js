@@ -17,6 +17,8 @@ router.use('*', function(req, res, next) {
 
     req.query.find = {};
 
+
+    //title
     if (req.param('title')) {
         var CHT_title = opencc.convertSync(req.param('title'));
 
@@ -25,18 +27,40 @@ router.use('*', function(req, res, next) {
         };
     };
 
+
+    //category
     if (req.param('category')) {
         req.query.find.category = {
             '$regex': req.param('category')
         };
     }
 
+    //limit
     var limit = req.param('limit') ? req.param('limit') : 30;
     req.query.limit = limit > 100 ? 100 : limit;
 
+    //skip
     req.query.skip = req.param('skip') ? req.param('skip') : 0;
 
-    req.query.hot = req.param('hot') ? {hot:-1} : null;
+    //sort
+    switch (req.param('sort')) {
+        case 'hot':
+            req.query.sort = {
+                hot: -1
+            };
+            break;
+        case 'update':
+            req.query.sort = {
+                updatedAt: -1
+            };
+            break;
+        default:
+
+            break;
+    }
+
+
+
 
     next();
 });
@@ -58,7 +82,7 @@ router.get('/', function(req, res, next) {
     ).
     skip(req.query.skip).
     limit(req.query.limit).
-    sort(req.query.hot).
+    sort(req.query.sort).
     exec(function(err, data) {
         if (err) return res.send(err);
         res.send(data);
