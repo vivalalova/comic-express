@@ -30,6 +30,7 @@ path `/catalog/`
 * `category title`
 	* from response of api `category` ex : `冒险类`
 * `title` for search comic-express
+* `hot` optional ,  set true to sort with hot counter
 * `limit` default to 30
 * `skip` (offset) default to 0 
 

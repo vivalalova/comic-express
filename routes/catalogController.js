@@ -18,8 +18,6 @@ router.use('*', function(req, res, next) {
     req.query.find = {};
 
     if (req.param('title')) {
-
-        // var decodeTitle = urlencode.decode(req.param('title'), 'utf8');
         var CHT_title = opencc.convertSync(req.param('title'));
 
         req.query.find.title = {
@@ -38,6 +36,7 @@ router.use('*', function(req, res, next) {
 
     req.query.skip = req.param('skip') ? req.param('skip') : 0;
 
+    req.query.hot = req.param('hot') ? {hot:-1} : null;
 
     next();
 });
@@ -59,6 +58,7 @@ router.get('/', function(req, res, next) {
     ).
     skip(req.query.skip).
     limit(req.query.limit).
+    sort(req.query.hot).
     exec(function(err, data) {
         if (err) return res.send(err);
         res.send(data);
