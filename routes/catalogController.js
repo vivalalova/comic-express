@@ -94,10 +94,49 @@ router.get('/:id', function(req, res, next) {
     DB.Catalog.find({
         "_id": req.param('id')
     }, function(err, data) {
-        if (err) return res.badRequest(err);
+        if (err) return res.send(err);
         res.send(data);
     });
 });
+
+router.post('/', function(req, res, next) {
+    console.log('post');
+    //find
+    DB.Catalog.find({
+        "_id": req.body.id
+    }, function(err, data) {
+        if (err) return res.send(err);
+        if (data.length) {
+            //update
+            DB.Catalog.update({
+                "_id": req.params.id
+            }, req.body, function(err, data) {
+                if (err) return res.send(err);
+                res.send(data);
+            });
+        } else {
+            DB.Catalog.create({
+                "_id": req.params.id
+            }, function(err, data) {
+                if (err) return res.send(err);
+                res.send(data);
+            });
+        }
+    });
+
+
+    var array = [{
+        type: 'jelly bean'
+    }, {
+        type: 'snickers'
+    }];
+    DB.Catalog.create(array, function(err, jellybean, snickers) {
+        if (err) return; // ...
+        console.log(jellybean);
+        console.log(snickers);
+    });
+    // res.send();
+})
 
 
 module.exports = router;

@@ -31,8 +31,8 @@ path `/catalog/`
 	* from response of api `category` ex : `冒险类`
 * `title` for search comic-express
 * `sort` optional,could be set to following
-	* hot , sort for hot catalog
-	* update , sort for recent updated
+	* `hot` , sort for hot catalog
+	* `update` , sort for recent updated
 * `limit` default to 30
 * `skip` (offset) default to 0 
 
