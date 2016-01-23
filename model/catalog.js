@@ -9,18 +9,19 @@ module.exports = {
     thumbnailurl: String,
     title: String,
     url: String,
-    hot:{
-        type:Number,
-        default:0,
-        index:true
+    hot: {
+        type: Number,
+        default: 0,
+        index: true
     },
-    createdAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
     updatedAt: {
         type: Date,
         default: Date.now,
-        index:true
+        index: true
     },
-    
+
 }
-
-

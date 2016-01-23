@@ -3,14 +3,17 @@ module.exports = {
     author: String,
     category: String,
     // chapter: {
-   //     type: String,
-   //     index: true
-   // },
+    //     type: String,
+    //     index: true
+    // },
     description: String,
     thumbnailurl: String,
     title: String,
     url: String,
-    createdAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
     updatedAt: {
         type: Date,
         default: Date.now
