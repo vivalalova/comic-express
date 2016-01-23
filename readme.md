@@ -4,7 +4,10 @@ comic-express
 ### Usage
 
 * git clone
-* set env param in ./config/env.js
+* cp ./config/env.sample.js ./config/env.js
+	* set env param in ./config/env.js
+* cp ./config/session.sample.js ./config/session.js
+	* set session secret
 
 * create seed user with admin permission
 	* modify `user id` and `passwd` first
