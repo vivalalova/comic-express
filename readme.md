@@ -1,6 +1,14 @@
 comic-express
 ===
 
+##### Master
+
+[![Build Status](https://travis-ci.org/vivalalova/comic-express.svg?branch=master)](https://travis-ci.org/vivalalova/comic-express/)
+
+##### Develop
+[![Build Status](https://travis-ci.org/vivalalova/comic-express.svg?branch=develop)](https://travis-ci.org/vivalalova/comic-express/)
+
+
 ### Usage
 
 * git clone
@@ -40,7 +48,7 @@ path `/catalog/`
 * `skip` (offset) default to 0 
 
 
-* `POST` : send multiple catalog as array
+* http method `POST` to send multiple catalog as array
 	* auto create or update
 	* bad in error handing
 
