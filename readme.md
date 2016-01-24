@@ -1,6 +1,14 @@
 comic-express
 ===
 
+##### Master
+
+[![Build Status](https://travis-ci.org/vivalalova/comic-express.svg?branch=master)](https://travis-ci.org/vivalalova/comic-express/)
+
+##### Develop
+[![Build Status](https://travis-ci.org/vivalalova/comic-express.svg?branch=develop)](https://travis-ci.org/vivalalova/comic-express/)
+
+
 ### Usage
 
 * git clone
