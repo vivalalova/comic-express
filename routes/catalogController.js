@@ -99,44 +99,69 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
-router.post('/', function(req, res, next) {
-    console.log('post');
-    //find
-    DB.Catalog.find({
-        "_id": req.body.id
-    }, function(err, data) {
-        if (err) return res.send(err);
-        if (data.length) {
-            //update
-            DB.Catalog.update({
-                "_id": req.params.id
-            }, req.body, function(err, data) {
-                if (err) return res.send(err);
-                res.send(data);
-            });
-        } else {
-            DB.Catalog.create({
-                "_id": req.params.id
-            }, function(err, data) {
-                if (err) return res.send(err);
-                res.send(data);
-            });
-        }
-    });
 
 
-    var array = [{
-        type: 'jelly bean'
-    }, {
-        type: 'snickers'
-    }];
-    DB.Catalog.create(array, function(err, jellybean, snickers) {
-        if (err) return; // ...
-        console.log(jellybean);
-        console.log(snickers);
-    });
-    // res.send();
+//detect body if a array
+router.use('/', function(req, res, next) {
+    if (req.body instanceof Array && req.body.length) {
+        next();
+    } else {
+        return res.send(404, {
+            RM: 'body requires array with catalog'
+        });
+    }
 })
+
+router.post('/', function(req, res, next) {
+    var catalogs = req.body;
+
+    var responseBody = [];
+
+    for (var i = catalogs.length - 1; i >= 0; i--) {
+        // var catalog = catalogs[i];
+        createOrUpdate(responseBody, i, catalogs, res);
+    };
+
+});
+
+function createOrUpdate(responseBody, i, catalogs, res) {
+    var catalog = catalogs[i];
+
+    DB.Catalog.findById(
+        catalog.id,
+        function(err, data) {
+            if (err) return res.send(err);
+            if (data) {
+                //update
+                console.log('update ' + catalog.id);
+                DB.Catalog.findByIdAndUpdate(
+                    catalog.id, catalog,
+                    function(err, data) {
+                        if (err) return res.send(err);
+                        data.id = catalog.id;
+                        responseBody.push(data);
+                        createOrUpdateDidEnd(catalogs.length, responseBody, res);
+                    });
+            } else {
+                console.log('create ' + catalog.id);
+                DB.Catalog.create({
+                    '_id': catalog.id
+                }, function(err, data) {
+                    if (err) return res.send(err);
+                    data.id = catalog.id;
+                    responseBody.push(data);
+                    createOrUpdateDidEnd(catalogs.length, responseBody, res);
+                });
+            }
+        });
+}
+
+function createOrUpdateDidEnd(count, responseBody, res) {
+    if (responseBody.length === count) {
+        console.log(responseBody);
+        return res.send(responseBody);
+    };
+}
 
 
 module.exports = router;
