@@ -68,7 +68,7 @@ router.use('*', function(req, res, next) {
 
 ////chapter
 var chapterController = require('./chapterController.js');
-router.get('/:id/chapter', function(req, res, next) {
+router.use('/:id/chapter', function(req, res, next) {
     req.query.catalogID = req.param('id');
     next();
 });
@@ -135,7 +135,7 @@ function createOrUpdate(responseBody, i, catalogs, res) {
             if (err) return res.send(err);
             if (data) {
                 //update
-                console.log('update ' + catalog.id);
+                // console.log('update ' + catalog.id);
                 DB.Catalog.findByIdAndUpdate(
                     catalog.id, catalog,
                     function(err, data) {
@@ -145,7 +145,7 @@ function createOrUpdate(responseBody, i, catalogs, res) {
                         createOrUpdateDidEnd(catalogs.length, responseBody, res);
                     });
             } else {
-                console.log('create ' + catalog.id);
+                // console.log('create ' + catalog.id);
                 DB.Catalog.create({
                     '_id': catalog.id
                 }, function(err, data) {
@@ -160,7 +160,7 @@ function createOrUpdate(responseBody, i, catalogs, res) {
 
 function createOrUpdateDidEnd(count, responseBody, res) {
     if (responseBody.length === count) {
-        console.log(responseBody);
+        // console.log(responseBody);
         return res.send(responseBody);
     };
 }
