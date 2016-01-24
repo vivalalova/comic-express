@@ -48,7 +48,7 @@ path `/catalog/`
 * `skip` (offset) default to 0 
 
 
-* `POST` : send multiple catalog as array
+* http method `POST` to send multiple catalog as array
 	* auto create or update
 	* bad in error handing
 
