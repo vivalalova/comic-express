@@ -127,6 +127,8 @@ router.post('/', function(req, res, next) {
 function createOrUpdate(responseBody, i, catalogs, res) {
     var catalog = catalogs[i];
 
+    delete catalog.hot;
+
     DB.Catalog.findById(
         catalog.id,
         function(err, data) {
