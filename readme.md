@@ -39,6 +39,11 @@ path `/catalog/`
 * `limit` default to 30
 * `skip` (offset) default to 0 
 
+
+* `POST` : send multiple catalog as array
+	* auto create or update
+	* bad in error handing
+
 #### chapter
 
 path `/catalog/{catalog_id}/chapter`

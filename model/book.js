@@ -4,7 +4,10 @@ module.exports = {
     passwd: String,
     token: String,
     thumbnailurl: String,
-    createdAt: Date,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
     updatedAt: {
         type: Date,
         default: Date.now
