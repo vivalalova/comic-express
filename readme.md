@@ -59,6 +59,13 @@ path `/catalog/{catalog_id}/chapter`
 * `catalog_id` 
 * limit = 2000
 
+path `/catalog/{catalog_id}/chapter/{chapter_id}`
+
+* return a chapter with id
+* included next chapter information in chapter.next
+* included prev chapter information in chapter.prev
+
+
 #### page
 
 path `/catalog/{catalog_id}/chapter/{chapter_id}/page`
