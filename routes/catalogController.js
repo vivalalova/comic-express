@@ -12,7 +12,7 @@ var opencc = new OpenCC('t2s.json');
 // var urlencode = require('urlencode');
 
 
-/////pre 
+/////pre
 router.use('*', function(req, res, next) {
 
     req.query.find = {};
@@ -36,11 +36,11 @@ router.use('*', function(req, res, next) {
     }
 
     //limit
-    var limit = req.param('limit') ? req.param('limit') : 30;
+    var limit = Number(req.param('limit')) ? Number(req.param('limit')) : 30;
     req.query.limit = limit > 100 ? 100 : limit;
 
     //skip
-    req.query.skip = req.param('skip') ? req.param('skip') : 0;
+    req.query.skip = Number(req.param('skip')) ? Number(req.param('skip')) : 0;
 
     //sort
     switch (req.param('sort')) {
