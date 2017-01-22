@@ -51,7 +51,7 @@ router.use('*', function(req, res, next) {
             break;
         case 'update':
             req.query.sort = {
-                updatedAt: -1
+                _updated_at: -1
             };
             break;
         default:
@@ -100,7 +100,6 @@ router.get('/:id', function(req, res, next) {
 });
 
 
-
 //detect body if a array
 router.use('/', function(req, res, next) {
     if (req.body instanceof Array && req.body.length) {
@@ -118,7 +117,6 @@ router.post('/', function(req, res, next) {
     var responseBody = [];
 
     for (var i = catalogs.length - 1; i >= 0; i--) {
-        // var catalog = catalogs[i];
         createOrUpdate(responseBody, i, catalogs, res);
     };
 

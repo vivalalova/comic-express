@@ -49,7 +49,7 @@ router.post('/sign', function(req, res, next) {
             DB.User.create({
                 '_id': req.body.id,
                 passwd: hashedPassword,
-                thumbnailurl: req.body.thumbnailurl,
+                thumbnailURL: req.body.thumbnailURL,
                 userName: req.body.userName,
                 token: createToken()
             }, function(err, user) {

@@ -1,12 +1,13 @@
 module.exports = {
     _id: String,
+    ID:String,
     author: String,
     category: {
         type: String,
         index: true
     },
     description: String,
-    thumbnailurl: String,
+    thumbnailURL: String,
     title: String,
     url: String,
     hot: {
@@ -14,14 +15,12 @@ module.exports = {
         default: 0,
         index: true
     },
-    createdAt: {
+    _created_at: {
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    _updated_at: {
         type: Date,
         default: Date.now
     }
-
-
 }

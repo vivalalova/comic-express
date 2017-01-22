@@ -1,24 +1,24 @@
 {
-    "name": "comic-express",
-    "version": "0.0.0",
-    "private": true,
-    "scripts": {
-        "start": "node ./bin/www"
-    },
-    "dependencies": {
-        "bcrypt": "^0.8.5",
-        "body-parser": "~1.13.2",
-        "cookie-parser": "~1.3.5",
-        "cors": "^2.7.1",
-        "debug": "~2.2.0",
-        "ejs": "~2.3.3",
-        "express": "~4.13.1",
-        "express-session": "^1.12.1",
-        "mongoose": "^4.3.3",
-        "morgan": "~1.6.1",
-        "opencc": "^1.0.3",
-        "serve-favicon": "~2.3.0",
-        "stylus": "0.42.3",
-        "urlencode": "^1.1.0"
-    }
+  "name": "comic-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "cors": "^2.7.1",
+    "debug": "~2.2.0",
+    "ejs": "~2.3.3",
+    "express": "~4.13.1",
+    "express-session": "^1.12.1",
+    "mongoose": "^4.7.7",
+    "morgan": "~1.6.1",
+    "opencc": "^1.0.3",
+    "serve-favicon": "~2.3.0",
+    "stylus": "0.42.3",
+    "urlencode": "^1.1.0"
+  }
 }

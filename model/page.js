@@ -7,14 +7,14 @@ module.exports = {
     //     index: true
     // },
     description: String,
-    thumbnailurl: String,
+    thumbnailURL: String,
     title: String,
     url: String,
-    createdAt: {
+    _created_at: {
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    _updated_at: {
         type: Date,
         default: Date.now
     }
