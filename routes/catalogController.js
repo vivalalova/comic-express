@@ -13,8 +13,8 @@ router.use('*', function(req, res, next) {
     req.query.find = {};
 
     //title
-    if (req.param('title')) {
-        var CHT_title = opencc.convertSync(req.param('title'));
+    if (req.params.title) {
+        var CHT_title = opencc.convertSync(req.params.title);
 
         req.query.find.title = {
             '$regex': CHT_title
@@ -23,21 +23,21 @@ router.use('*', function(req, res, next) {
 
 
     //category
-    if (req.param('category')) {
+    if (req.params.category) {
         req.query.find.category = {
-            '$regex': req.param('category')
+            '$regex': req.params.category
         };
     }
 
     //limit
-    var limit = Number(req.param('limit')) ? Number(req.param('limit')) : 30;
+    var limit = Number(req.params.limit) ? Number(req.params.limit) : 30;
     req.query.limit = limit > 100 ? 100 : limit;
 
     //skip
-    req.query.skip = Number(req.param('skip')) ? Number(req.param('skip')) : 0;
+    req.query.skip = Number(req.params.skip) || 0;
 
     //sort
-    switch (req.param('sort')) {
+    switch (req.params.sort) {
         case 'hot':
             req.query.sort = {
                 hot: -1
@@ -60,7 +60,7 @@ router.use('*', function(req, res, next) {
 ////chapter
 var chapterController = require('./chapterController.js');
 router.use('/:id/chapter', function(req, res, next) {
-    req.query.catalogID = req.param('id');
+    req.query.catalogID = req.params.id;
     next();
 });
 router.use('/:id/chapter', chapterController);
@@ -83,7 +83,7 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
     DB.Catalog.find({
-        "ID": req.param('id')
+        "ID": req.params.id
     }, function(err, data) {
         if (err) return res.send(err);
         res.send(data);
