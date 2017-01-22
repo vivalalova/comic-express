@@ -16,5 +16,4 @@ var User = mongoose.model('user', userSchema);
 
 module.exports.Catalog = Catalog;
 module.exports.Chapter = Chapter;
-module.exports.Page = Page;
 module.exports.User = User;
