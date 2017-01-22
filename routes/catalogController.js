@@ -13,31 +13,30 @@ router.use('*', function(req, res, next) {
     req.query.find = {};
 
     //title
-    if (req.params.title) {
-        var CHT_title = opencc.convertSync(req.params.title);
+    if (req.query.title) {
+        var CHT_title = opencc.convertSync(req.query.title);
 
         req.query.find.title = {
             '$regex': CHT_title
         };
     };
 
-
     //category
-    if (req.params.category) {
+    if (req.query.category) {
         req.query.find.category = {
-            '$regex': req.params.category
+            '$regex': req.query.category
         };
     }
 
     //limit
-    var limit = Number(req.params.limit) ? Number(req.params.limit) : 30;
+    var limit = Number(req.query.limit) || 30;
     req.query.limit = limit > 100 ? 100 : limit;
 
     //skip
-    req.query.skip = Number(req.params.skip) || 0;
+    req.query.skip = Number(req.query.skip) || 0;
 
     //sort
-    switch (req.params.sort) {
+    switch (req.query.sort) {
         case 'hot':
             req.query.sort = {
                 hot: -1
@@ -52,6 +51,8 @@ router.use('*', function(req, res, next) {
 
             break;
     }
+
+    console.log(req.query)
 
     next();
 });
