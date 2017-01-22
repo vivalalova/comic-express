@@ -10,7 +10,11 @@ var router = express.Router();
 router.get('/:id/page', function(req, res, next) {
     DB.Chapter.findOne({ _id : req.params.id},function (err,chapter) {
         if (err) return res.send(err)
-        return res.send(chapter.pages)
+
+        if (chapter.pages) {
+            return res.send(chapter.pages)
+        }
+        next()
     });
 });
 
