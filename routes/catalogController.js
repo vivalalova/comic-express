@@ -83,7 +83,7 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
     DB.Catalog.find({
-        "_id": req.param('id')
+        "ID": req.param('id')
     }, function(err, data) {
         if (err) return res.send(err);
         res.send(data);

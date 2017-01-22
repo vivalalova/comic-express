@@ -1,6 +1,6 @@
 module.exports = {
     _id: String,
-    ID:String,
+    catalogID:String,
     author: String,
     category: {
         type: String,
@@ -9,7 +9,7 @@ module.exports = {
     description: String,
     thumbnailURL: String,
     title: String,
-    url: String,
+    URL: String,
     hot: {
         type: Number,
         default: 0,
@@ -22,5 +22,6 @@ module.exports = {
     _updated_at: {
         type: Date,
         default: Date.now
-    }
+    },
+    pages:[String]
 }

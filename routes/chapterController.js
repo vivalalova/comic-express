@@ -54,12 +54,13 @@ router.get('/:id', function(req, res, next) {
 function find(req, res, callback) {
 
     DB.Chapter.find({
-        catalog: req.query.catalogID
+        catalogID: req.query.catalogID
     }).
     limit(2000).
     sort([
         ['title', 'descending']
     ]).
+    select('-pages').
     exec(function(err, data) {
         if (err) return res.send(err);
 
@@ -72,7 +73,7 @@ function find(req, res, callback) {
 
 function updateHotWithChapter(chapterID) {
     DB.Chapter.update({
-        '_id': chapterID
+        'ID': chapterID
     }, {
         $inc: {
             hot: 1
@@ -86,7 +87,7 @@ function updateHotWithChapter(chapterID) {
 
 function updateHitWithCatalogID(catalogID) {
     DB.Catalog.update({
-        '_id': catalogID
+        'catalogID': catalogID
     }, {
         $inc: {
             hot: 1
