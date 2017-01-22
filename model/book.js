@@ -3,12 +3,12 @@ module.exports = {
     userName: String,
     passwd: String,
     token: String,
-    thumbnailurl: String,
-    createdAt: {
+    thumbnailURL: String,
+    _created_at: {
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    _updated_at: {
         type: Date,
         default: Date.now
     }

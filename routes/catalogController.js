@@ -3,24 +3,18 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
-
 //繁體 to 簡體
 var OpenCC = require('opencc');
 var opencc = new OpenCC('t2s.json');
-
-//url decode
-// var urlencode = require('urlencode');
-
 
 /////pre
 router.use('*', function(req, res, next) {
 
     req.query.find = {};
 
-
     //title
-    if (req.param('title')) {
-        var CHT_title = opencc.convertSync(req.param('title'));
+    if (req.params.title) {
+        var CHT_title = opencc.convertSync(req.params.title);
 
         req.query.find.title = {
             '$regex': CHT_title
@@ -29,21 +23,21 @@ router.use('*', function(req, res, next) {
 
 
     //category
-    if (req.param('category')) {
+    if (req.params.category) {
         req.query.find.category = {
-            '$regex': req.param('category')
+            '$regex': req.params.category
         };
     }
 
     //limit
-    var limit = Number(req.param('limit')) ? Number(req.param('limit')) : 30;
+    var limit = Number(req.params.limit) ? Number(req.params.limit) : 30;
     req.query.limit = limit > 100 ? 100 : limit;
 
     //skip
-    req.query.skip = Number(req.param('skip')) ? Number(req.param('skip')) : 0;
+    req.query.skip = Number(req.params.skip) || 0;
 
     //sort
-    switch (req.param('sort')) {
+    switch (req.params.sort) {
         case 'hot':
             req.query.sort = {
                 hot: -1
@@ -51,16 +45,13 @@ router.use('*', function(req, res, next) {
             break;
         case 'update':
             req.query.sort = {
-                updatedAt: -1
+                _updated_at: -1
             };
             break;
         default:
 
             break;
     }
-
-
-
 
     next();
 });
@@ -69,7 +60,7 @@ router.use('*', function(req, res, next) {
 ////chapter
 var chapterController = require('./chapterController.js');
 router.use('/:id/chapter', function(req, res, next) {
-    req.query.catalogID = req.param('id');
+    req.query.catalogID = req.params.id;
     next();
 });
 router.use('/:id/chapter', chapterController);
@@ -92,13 +83,12 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
     DB.Catalog.find({
-        "_id": req.param('id')
+        "ID": req.params.id
     }, function(err, data) {
         if (err) return res.send(err);
         res.send(data);
     });
 });
-
 
 
 //detect body if a array
@@ -118,52 +108,10 @@ router.post('/', function(req, res, next) {
     var responseBody = [];
 
     for (var i = catalogs.length - 1; i >= 0; i--) {
-        // var catalog = catalogs[i];
         createOrUpdate(responseBody, i, catalogs, res);
     };
 
 });
-
-function createOrUpdate(responseBody, i, catalogs, res) {
-    var catalog = catalogs[i];
-
-    delete catalog.hot;
-
-    DB.Catalog.findById(
-        catalog.id,
-        function(err, data) {
-            if (err) return res.send(err);
-            if (data) {
-                //update
-                // console.log('update ' + catalog.id);
-                DB.Catalog.findByIdAndUpdate(
-                    catalog.id, catalog,
-                    function(err, data) {
-                        if (err) return res.send(err);
-                        data.id = catalog.id;
-                        responseBody.push(data);
-                        createOrUpdateDidEnd(catalogs.length, responseBody, res);
-                    });
-            } else {
-                // console.log('create ' + catalog.id);
-                DB.Catalog.create({
-                    '_id': catalog.id
-                }, function(err, data) {
-                    if (err) return res.send(err);
-                    data.id = catalog.id;
-                    responseBody.push(data);
-                    createOrUpdateDidEnd(catalogs.length, responseBody, res);
-                });
-            }
-        });
-}
-
-function createOrUpdateDidEnd(count, responseBody, res) {
-    if (responseBody.length === count) {
-        // console.log(responseBody);
-        return res.send(responseBody);
-    };
-}
 
 
 module.exports = router;

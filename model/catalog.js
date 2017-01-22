@@ -6,19 +6,19 @@ module.exports = {
         index: true
     },
     description: String,
-    thumbnailurl: String,
+    thumbnailURL: String,
     title: String,
-    url: String,
+    URL: String,
     hot: {
         type: Number,
         default: 0,
         index: true
     },
-    createdAt: {
+    _created_at: {
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    _updated_at: {
         type: Date,
         default: Date.now,
         index: true
