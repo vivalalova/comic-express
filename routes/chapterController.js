@@ -8,15 +8,10 @@ var router = express.Router();
 
 /////////////////////////////////////////////////////
 router.get('/:id/page', function(req, res, next) {
-    // req.query._id = req.params['id'];
-
-    console.log(req.params.id);
-
-    DB.Chapter.findOne({ 'id' : req.params.id},function (data,err) {
-        console.log(data)
+    DB.Chapter.findOne({ _id : req.params.id},function (err,chapter) {
+        if (err) return res.send(err)
+        return res.send(chapter.pages)
     });
-
-    next()
 });
 
 /////////////////////////////////////////////////////////////
@@ -27,11 +22,8 @@ router.get('/', function(req, res, next) {
     })
 })
 
-
 router.get('/:id', function(req, res, next) {
-    console.log(req.params)
     find(req, res, function(chapters) {
-
         for (var index = chapters.length - 1; index >= 0; index--) {
 
             if (chapters[index].id === req.params.id) {
@@ -60,7 +52,6 @@ router.get('/:id', function(req, res, next) {
 
 
 function find(req, res, callback) {
-
     DB.Chapter.find({
         catalogID: req.query.catalogID
     }).
@@ -88,7 +79,6 @@ function updateHotWithChapter(chapterID) {
         }
     }, function(err, numAffected) {
         if (err) return console.log(err);
-
     })
 }
 
@@ -102,7 +92,6 @@ function updateHitWithCatalogID(catalogID) {
         }
     }, function(err, numAffected) {
         if (err) return console.log(err);
-
     })
 }
 
