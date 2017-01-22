@@ -3,20 +3,14 @@ var DB = require('../model/DB.js');
 var express = require('express');
 var router = express.Router();
 
-
 //繁體 to 簡體
 var OpenCC = require('opencc');
 var opencc = new OpenCC('t2s.json');
-
-//url decode
-// var urlencode = require('urlencode');
-
 
 /////pre
 router.use('*', function(req, res, next) {
 
     req.query.find = {};
-
 
     //title
     if (req.param('title')) {
@@ -58,9 +52,6 @@ router.use('*', function(req, res, next) {
 
             break;
     }
-
-
-
 
     next();
 });
@@ -121,47 +112,6 @@ router.post('/', function(req, res, next) {
     };
 
 });
-
-function createOrUpdate(responseBody, i, catalogs, res) {
-    var catalog = catalogs[i];
-
-    delete catalog.hot;
-
-    DB.Catalog.findById(
-        catalog.id,
-        function(err, data) {
-            if (err) return res.send(err);
-            if (data) {
-                //update
-                // console.log('update ' + catalog.id);
-                DB.Catalog.findByIdAndUpdate(
-                    catalog.id, catalog,
-                    function(err, data) {
-                        if (err) return res.send(err);
-                        data.id = catalog.id;
-                        responseBody.push(data);
-                        createOrUpdateDidEnd(catalogs.length, responseBody, res);
-                    });
-            } else {
-                // console.log('create ' + catalog.id);
-                DB.Catalog.create({
-                    '_id': catalog.id
-                }, function(err, data) {
-                    if (err) return res.send(err);
-                    data.id = catalog.id;
-                    responseBody.push(data);
-                    createOrUpdateDidEnd(catalogs.length, responseBody, res);
-                });
-            }
-        });
-}
-
-function createOrUpdateDidEnd(count, responseBody, res) {
-    if (responseBody.length === count) {
-        // console.log(responseBody);
-        return res.send(responseBody);
-    };
-}
 
 
 module.exports = router;
