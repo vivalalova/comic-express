@@ -51,9 +51,7 @@ router.use('*', function(req, res, next) {
 
             break;
     }
-
-    console.log(req.query)
-
+    
     next();
 });
 
