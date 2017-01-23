@@ -76,7 +76,7 @@ function find(req, res, callback) {
 
 function updateHotWithChapter(chapterID) {
     DB.Chapter.update({
-        'ID': chapterID
+        catalogID: chapterID
     }, {
         $inc: {
             hot: 1
@@ -89,7 +89,7 @@ function updateHotWithChapter(chapterID) {
 
 function updateHitWithCatalogID(catalogID) {
     DB.Catalog.update({
-        'catalogID': catalogID
+        ID: catalogID
     }, {
         $inc: {
             hot: 1
