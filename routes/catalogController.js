@@ -101,16 +101,4 @@ router.use('/', function(req, res, next) {
     }
 })
 
-router.post('/', function(req, res, next) {
-    var catalogs = req.body;
-
-    var responseBody = [];
-
-    for (var i = catalogs.length - 1; i >= 0; i--) {
-        createOrUpdate(responseBody, i, catalogs, res);
-    };
-
-});
-
-
 module.exports = router;
